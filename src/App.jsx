@@ -49,6 +49,12 @@ export default function App() {
     setEditId(conta.id);
   }
 
+  function excluir(id) {
+    if (confirm("Deseja excluir esta conta?")) {
+      setContas(contas.filter((c) => c.id !== id));
+    }
+  }
+
   function togglePago(contaId, index) {
     setContas(
       contas.map((c) =>
@@ -63,23 +69,21 @@ export default function App() {
   }
 
   return (
-    <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 400, margin: "auto" }}>
+    <div style={{ padding: 20, fontFamily: "Arial", maxWidth: 420, margin: "auto" }}>
       <h2>📒 Agenda de Contas</h2>
 
       <input
         placeholder="Nome"
         value={nome}
         onChange={(e) => setNome(e.target.value)}
-      />
-      <br /><br />
+      /><br /><br />
 
       <input
         placeholder="Valor"
         type="number"
         value={valor}
         onChange={(e) => setValor(e.target.value)}
-      />
-      <br /><br />
+      /><br /><br />
 
       <input
         placeholder="Quantidade de meses"
@@ -87,8 +91,7 @@ export default function App() {
         min="1"
         value={meses}
         onChange={(e) => setMeses(Number(e.target.value))}
-      />
-      <br /><br />
+      /><br /><br />
 
       <button onClick={salvar}>
         {editId ? "Salvar edição" : "Adicionar"}
@@ -97,9 +100,8 @@ export default function App() {
       <hr />
 
       {contas.map((conta) => (
-        <div key={conta.id} style={{ marginBottom: 15 }}>
+        <div key={conta.id} style={{ marginBottom: 20 }}>
           <strong>{conta.nome}</strong> — R$ {conta.valor}
-          <br />
 
           {conta.pagos.map((pago, i) => (
             <label key={i} style={{ display: "block" }}>
@@ -112,9 +114,11 @@ export default function App() {
             </label>
           ))}
 
-          <button onClick={() => editar(conta)}>✏️ Editar</button>
+          <button onClick={() => editar(conta)}>✏️ Editar</button>{" "}
+          <button onClick={() => excluir(conta.id)}>🗑️ Excluir</button>
         </div>
       ))}
     </div>
   );
 }
+
