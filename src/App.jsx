@@ -73,5 +73,5 @@ export default function App() {
       />
       <br />
 
-      <input
+      <input />
         placeh
